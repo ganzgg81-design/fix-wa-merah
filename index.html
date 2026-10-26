@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1018">
+<title>Fix WA Merah G4nz</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1018;--panel:#131c28;--panel2:#192536;--line:#26364a;--text:#f1f5fb;--muted:#9caec2;--green:#25c777;--red:#ff5d72;--blue:#6bb7ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% -10%,#23354b 0,transparent 38%),var(--bg);font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text)}
+main{max-width:680px;margin:auto;padding:22px 16px 38px}.top{display:flex;align-items:center;gap:13px;margin:5px 0 24px}.logo{width:50px;height:50px;border-radius:17px;background:linear-gradient(135deg,#ff5d72,#a62b4c);display:grid;place-items:center;font-size:25px;box-shadow:0 8px 30px #ff5d7225}.title{font-size:21px;font-weight:800;letter-spacing:.2px}.sub{font-size:12px;color:var(--muted);margin-top:3px}.pill{margin-left:auto;border:1px solid #3b495c;border-radius:99px;padding:6px 10px;font-size:11px;color:#b9c8d9}
+.hero{padding:20px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#172333,#101721);margin-bottom:22px}.tag{color:#ff8292;font-size:11px;font-weight:800;letter-spacing:1.4px}.hero h1{font-size:25px;line-height:1.15;margin:10px 0}.hero p{font-size:13px;line-height:1.6;color:var(--muted);margin:0}.section{font-size:15px;font-weight:750;margin:22px 0 12px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}.issue{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:15px;text-align:left;color:var(--text);min-height:126px;cursor:pointer}.issue:active{transform:scale(.985)}.emoji{font-size:23px}.issue strong{display:block;margin:10px 0 4px;font-size:14px}.issue small{display:block;color:var(--muted);font-size:11px;line-height:1.4}.panel{display:none;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:18px}.panel.show{display:block}.panel h2{font-size:18px;margin:0 0 8px}.panel p{font-size:13px;color:#c0cede;line-height:1.6;white-space:pre-line}.label{font-size:12px;color:var(--muted);display:block;margin:13px 0 6px}select,textarea,input{width:100%;background:#0b121c;border:1px solid var(--line);border-radius:11px;color:var(--text);padding:12px;font:inherit;font-size:13px}textarea{min-height:210px;resize:vertical;line-height:1.5}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}button.primary,button.secondary{border:0;border-radius:12px;padding:12px 15px;font-weight:750;font-size:13px;cursor:pointer}.primary{background:var(--green);color:#062414;flex:1}.secondary{background:var(--panel2);border:1px solid var(--line)!important;color:var(--text)}.note{font-size:11px!important;color:var(--muted)!important;line-height:1.55!important}.footer{text-align:center;color:#77899d;font-size:11px;margin-top:25px}.status{color:var(--green);font-size:12px;min-height:18px;margin-top:8px}
+@media(max-width:360px){.cards{grid-template-columns:1fr}.pill{display:none}}
+</style>
+</head>
+<body>
+<main>
+  <header class="top">
+    <div class="logo">🛡️</div>
+    <div><div class="title">Fix WA Merah <span style="color:#ff7184">G4nz</span></div><div class="sub">Asisten diagnosis & draf bantuan akun</div></div>
+    <div class="pill">BETA</div>
+  </header>
+  <section class="hero">
+    <div class="tag">ACCOUNT SUPPORT ASSISTANT</div>
+    <h1>Bantu periksa masalah WhatsApp.</h1>
+    <p>Pilih pesan yang muncul di aplikasi untuk melihat langkah aman dan membuat draf laporan yang bisa kamu salin ke dukungan resmi WhatsApp.</p>
+  </section>
+  <div class="section">Pilih masalah kamu</div>
+  <div class="cards">
+    <button class="issue" data-issue="red"><span class="emoji">🔴</span><strong>Login tidak tersedia</strong><small>“Untuk alasan keamanan, kami tidak bisa memasukkan Anda saat ini.”</small></button>
+    <button class="issue" data-issue="restricted"><span class="emoji">⛔</span><strong>Akun dibatasi</strong><small>Akun diblokir atau perlu peninjauan.</small></button>
+    <button class="issue" data-issue="otp"><span class="emoji">📩</span><strong>Kode OTP</strong><small>Kode verifikasi SMS atau panggilan tidak masuk.</small></button>
+    <button class="issue" data-issue="login"><span class="emoji">🔐</span><strong>Masalah login lain</strong><small>Aplikasi gagal masuk atau menampilkan error.</small></button>
+  </div>
+  <section class="panel" id="result">
+    <h2 id="resultTitle">Hasil pemeriksaan</h2>
+    <p id="diagnosis"></p>
+    <label class="label" for="lang">Bahasa draf laporan</label>
+    <select id="lang"><option value="id">Bahasa Indonesia</option><option value="en">English</option></select>
+    <label class="label" for="phone">Nomor WhatsApp (opsional, isi sendiri)</label>
+    <input id="phone" placeholder="Contoh: +62xxxxxxxxxx" autocomplete="off">
+    <label class="label" for="detail">Pesan persis yang muncul (opsional)</label>
+    <input id="detail" placeholder="Contoh: Login tidak tersedia untuk saat ini" autocomplete="off">
+    <label class="label" for="draft">Draf laporan — periksa sebelum dikirim</label>
+    <textarea id="draft" spellcheck="true"></textarea>
+    <div class="actions"><button class="primary" id="copy">Salin draf</button><button class="secondary" id="refresh">Perbarui draf</button></div>
+    <div class="status" id="status" aria-live="polite"></div>
+    <p class="note">Penting: draf ini tidak dikirim otomatis. Lengkapi hanya informasi yang diperlukan dan kirim lewat aplikasi atau halaman dukungan resmi. Jangan pernah memasukkan OTP, PIN, atau kata sandi.</p>
+  </section>
+  <section class="hero" style="margin-top:20px;margin-bottom:0">
+    <div class="tag">LANGKAH AMAN</div>
+    <p style="margin-top:8px">Gunakan WhatsApp resmi, hentikan percobaan login berulang, tunggu jika aplikasi menampilkan penghitung waktu, lalu tekan “Hubungi Kami” atau “Minta tinjauan” jika tersedia.</p>
+    <div class="actions"><button class="primary" onclick="window.open('https://www.whatsapp.com/contact','_blank','noopener')">Buka Dukungan WhatsApp</button></div>
+  </section>
+  <div class="footer">Fix WA Merah G4nz • Alat bantu independen, bukan layanan resmi WhatsApp.</div>
+</main>
+<script>
+const data={
+ red:{title:"Login tidak tersedia untuk saat ini",diagnosis:"Pesan ini menunjukkan proses login sedang ditahan atau ditolak oleh pemeriksaan keamanan. Penyebab pastinya tidak dapat dipastikan dari pesan ini saja.\\n\\n1. Hentikan percobaan login berulang.\\n2. Pastikan nomor dan SIM masih aktif.\\n3. Gunakan aplikasi WhatsApp resmi.\\n4. Tunggu jika ada penghitung waktu.\\n5. Tekan “Hubungi Kami” di aplikasi untuk meminta bantuan."},
+ restricted:{title:"Akun dibatasi atau diblokir",diagnosis:"Pembatasan dapat berkaitan dengan aktivitas yang terdeteksi sistem atau kesalahan.\\n\\n1. Buka WhatsApp resmi.\\n2. Jika tersedia, pilih “Minta tinjauan”.\\n3. Jelaskan masalah secara jujur dan tunggu balasan resmi."},
+ otp:{title:"Kode verifikasi tidak masuk",diagnosis:"1. Periksa kode negara dan nomor telepon.\\n2. Pastikan SIM aktif dan bisa menerima SMS/panggilan.\\n3. Tunggu penghitung waktu sebelum mencoba lagi.\\n4. Jangan bagikan kode verifikasi kepada siapa pun."},
+ login:{title:"Masalah login WhatsApp",diagnosis:"1. Periksa koneksi internet dan tanggal/waktu otomatis.\\n2. Pastikan aplikasi berasal dari toko resmi.\\n3. Catat pesan kesalahan persis.\\n4. Hubungi dukungan resmi jika masalah berlanjut."}
+};
+let current="red";
+function makeDraft(){
+ const d=data[current], lang=document.getElementById("lang").value;
+ const phone=document.getElementById("phone").value.trim()||"[nomor dengan kode negara]";
+ const detail=document.getElementById("detail").value.trim()||d.title;
+ let out;
+ if(lang==="en"){
+  out=`Hello WhatsApp Support Team,\\n\\nI am having trouble accessing my WhatsApp account.\\n\\nPhone number: ${phone}\\nMessage shown in the app: ${detail}\\nDevice: Android\\n\\nPlease review this issue and advise me on the appropriate steps to restore access, if eligible. I am willing to comply with WhatsApp's Terms of Service.\\n\\nThank you.`;
+ }else{
+  out=`Halo Tim Dukungan WhatsApp,\\n\\nSaya mengalami kendala saat mengakses akun WhatsApp saya.\\n\\nNomor telepon: ${phone}\\nPesan yang muncul: ${detail}\\nPerangkat: Android\\n\\nMohon bantu periksa masalah ini dan berikan langkah yang sesuai untuk memulihkan akses jika memungkinkan. Saya bersedia mengikuti Ketentuan Layanan WhatsApp.\\n\\nTerima kasih.`;
+ }
+ document.getElementById("draft").value=out;
+}
+document.querySelectorAll("[data-issue]").forEach(b=>b.addEventListener("click",()=>{
+ current=b.dataset.issue;const d=data[current];
+ document.getElementById("resultTitle").textContent=d.title;
+ document.getElementById("diagnosis").textContent=d.diagnosis.replaceAll("\\n","\n");
+ document.getElementById("result").classList.add("show");
+ makeDraft();document.getElementById("status").textContent="";
+ document.getElementById("result").scrollIntoView({behavior:"smooth",block:"start"});
+}));
+document.getElementById("lang").addEventListener("change",makeDraft);
+document.getElementById("refresh").addEventListener("click",()=>{makeDraft();document.getElementById("status").textContent="Draf diperbarui.";});
+document.getElementById("copy").addEventListener("click",async()=>{
+ const t=document.getElementById("draft");
+ try{await navigator.clipboard.writeText(t.value);document.getElementById("status").textContent="Draf berhasil disalin.";}
+ catch(e){t.focus();t.select();document.getElementById("status").textContent="Pilih teks lalu salin secara manual.";}
+});
+</script>
+</body>
+</html>
